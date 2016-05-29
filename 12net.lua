@@ -20,9 +20,7 @@ logger:setNames{'train error', 'test error'}
 local opt = {}    
 opt.optimization = 'sgd'
 opt.batch_size = 128
---opt.train_size = 129
 opt.train_size = (9/10)*255225
---opt.test_size = 128
 opt.test_size = 255225 - opt.train_size   
 opt.epochs = 1 --train for 100  7.9448e-01
 

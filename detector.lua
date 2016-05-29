@@ -10,8 +10,9 @@ require 'PyramidPacker'
 require 'PyramidUnPacker'
 require 'nms'
 
-
+--------------------------------------
 --------- Face Detector --------------
+--------------------------------------
 
 -- Create empty table to store file names:
 files = {}
@@ -44,8 +45,9 @@ for k =1 ,39 do
 end
 
 
-local model_12net = torch.load('../q1/model_12net.net'):double()
-local model_24net = torch.load('../q3/model_24net.net'):double()
+local model_12net = torch.load('../model_12net.net'):double()
+local model_24net = torch.load('../model_24net.net'):double()
+--local model_48net = torch.load('../model_48net.net'):double()
 
 -- create pyramid packer and unpacker. scales is a table with all -- the scales you with to check. 
 local unpacker_12 = nn.PyramidUnPacker(model_12net)

@@ -1,8 +1,3 @@
----------------------------------------------------------------------------------------
--- Ex3 - q3 
--- Igor Lapshun 304357262
----------------------------------------------------------------------------------------
-
 
 require 'torch'   
 require 'image'  
@@ -15,7 +10,7 @@ require 'PyramidUnPacker'
 require 'nms'
 
 ------------------------------------------------------------------------------
--- EX3 Q3 - 24-net
+-- 24-net
 ------------------------------------------------------------------------------
 
 local logger = optim.Logger('loss_24net.log')
@@ -27,7 +22,6 @@ torch.setdefaulttensortype('torch.DoubleTensor')
 local opt = {}         -- these options are used throughout
 opt.optimization = 'sgd'
 opt.batch_size = 128	
---143519
 opt.train_size = math.ceil((9/10)*71395)
 opt.test_size = 71395 - opt.train_size   
 opt.epochs = 300 
@@ -159,20 +153,6 @@ local GetNegatives = function()
 						croppedDetection = image.scale(croppedDetection, 24, 24)
 						table.insert(false_positive_24_pascal_crops, croppedDetection:resize(1,3,24,24))
 
-						--				for debugging Display image and get handle
-						--				win:setcolor(1,0,0)
-						--				win:fill()
-						--				win:rectangle(sus[1], sus[2], sus[3]-sus[1], sus[4]-sus[2])
-						--				win:stroke()
-						--				win:setcolor(0,1,0)
-						--				win:fill()
-						--				win:rectangle(sus[1], sus[2], sus[3]-sus[1], sus[4]-sus[2])
-						--				win:stroke()
-						--				win:setcolor(0,0,1)
-						--				win:fill()
-						--				win:rectangle(sus[1], sus[2], sus[3]-sus[1], sus[4]-sus[2])
-						--				win:stroke()
-
 					end
 				end
 			end
@@ -261,12 +241,10 @@ local feval = function(x)
 
 	-- 1. compute outputs (log probabilities) for each data point
 	local batch_outputs = model:forward(batch_inputs)
-
 	-- 2. compute the loss of these outputs, measured against the true labels in batch_target
 	local batch_loss = criterion:forward(batch_outputs, batch_targets)
 	-- 3. compute the derivative of the loss wrt the outputs of the model
 	local loss_doutput = criterion:backward(batch_outputs, batch_targets)
-	-- 4. use gradients to update weights, we'll understand this step more next week
 	model:backward(batch_inputs, loss_doutput)
 
 	return batch_loss, gradParameters
@@ -322,7 +300,6 @@ for i = 1,opt.epochs do
 
 	test_losses[#test_losses + 1] = err
 	print('test error ' .. err)
-	--print('prob face ' .. math.exp(output_test[1][1][1][1]))
 	logger:add{train_losses[#train_losses], test_losses[#test_losses]}
 
 end
